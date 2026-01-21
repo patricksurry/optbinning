@@ -1085,10 +1085,10 @@ class BinningProcess(Base, BaseEstimator, BaseBinningProcess):
         # check X and y data
         if check_input:
             X = check_array(X, ensure_2d=False, dtype=None,
-                            ensure_all_finite='allow-nan')
+                            force_all_finite='allow-nan')
 
             y = check_array(y, ensure_2d=False, dtype=None,
-                            ensure_all_finite=True)
+                            force_all_finite=True)
 
             check_consistent_length(X, y)
 

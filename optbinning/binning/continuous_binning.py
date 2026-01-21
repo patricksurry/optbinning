@@ -569,7 +569,7 @@ class ContinuousOptimalBinning(OptimalBinning):
         # Optionally validate input
         if check_input:
             x = check_array(x, ensure_2d=False, dtype=None,
-                          ensure_all_finite='allow-nan')
+                          force_all_finite='allow-nan')
 
         return transformer.transform(x)
 
@@ -666,7 +666,7 @@ class ContinuousOptimalBinning(OptimalBinning):
                 if self.dtype == "numerical":
                     user_splits = check_array(
                         self.user_splits, ensure_2d=False, dtype=None,
-                        ensure_all_finite=True)
+                        force_all_finite=True)
 
                     if len(set(user_splits)) != len(user_splits):
                         raise ValueError("User splits are not unique.")
