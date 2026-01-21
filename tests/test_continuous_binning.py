@@ -277,3 +277,41 @@ def test_verbose():
     optb.fit(x, y)
 
     assert optb.status == "OPTIMAL"
+
+
+def test_pickle_backward_compatibility():
+    """Test backward compatibility for pickled objects without _transform_cache."""
+    import pickle
+
+    # Create and fit a binning object
+    optb = ContinuousOptimalBinning()
+    optb.fit(x, y)
+
+    # Test transform works
+    result_before = optb.transform(x[:5])
+    assert result_before is not None
+
+    # Pickle and unpickle normally
+    pickled = pickle.dumps(optb)
+    optb_loaded = pickle.loads(pickled)
+
+    # Verify _transform_cache was not serialized
+    assert b'_transform_cache' not in pickled
+
+    # Test transform works after unpickling
+    result_after = optb_loaded.transform(x[:5])
+    assert np.array_equal(result_before, result_after)
+
+    # Simulate old object without _transform_cache (backward compatibility)
+    state = optb.__dict__.copy()
+    state.pop('_transform_cache', None)
+    optb_old = ContinuousOptimalBinning.__new__(ContinuousOptimalBinning)
+    optb_old.__dict__.update(state)
+
+    # This should work without AttributeError
+    result_old = optb_old.transform(x[:5])
+    assert np.array_equal(result_before, result_old)
+
+    # Verify cache was created
+    assert hasattr(optb_old, '_transform_cache')
+    assert isinstance(optb_old._transform_cache, dict)

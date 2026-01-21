@@ -546,6 +546,10 @@ class ContinuousOptimalBinning(OptimalBinning):
         # Create cache key from transform parameters
         cache_key = (metric, metric_special, metric_missing, show_digits)
 
+        # Ensure cache exists (backward compatibility for deserialized objects)
+        if not hasattr(self, '_transform_cache'):
+            self._transform_cache = {}
+
         # Get or create cached transformer
         if cache_key not in self._transform_cache:
             self._transform_cache[cache_key] = ContinuousTargetTransformer(
@@ -1075,3 +1079,17 @@ class ContinuousOptimalBinning(OptimalBinning):
                 cont_table_attr[key] = np.array(cont_table_attr[key])
 
         self._binning_table = ContinuousBinningTable(**cont_table_attr)
+
+    def __getstate__(self):
+        """Exclude _transform_cache from serialization for backward compatibility."""
+        state = self.__dict__.copy()
+        # Remove the cache to avoid serializing it
+        state.pop('_transform_cache', None)
+        return state
+
+    def __setstate__(self, state):
+        """Restore object state and initialize _transform_cache if missing."""
+        self.__dict__.update(state)
+        # Initialize cache if it doesn't exist (backward compatibility)
+        if '_transform_cache' not in self.__dict__:
+            self._transform_cache = {}
