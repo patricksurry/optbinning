@@ -1,12 +1,12 @@
-optbinning (Version 0.14.0)
-Copyright (c) 2019-2022 Guillermo Navas-Palencia, Apache License 2.0
+optbinning (Version 0.21.0)
+Copyright (c) 2019-2025 Guillermo Navas-Palencia, Apache License 2.0
 
   Number of records   : 569
   Number of variables : 30
-  Time                : 4.5420  sec
+  Time                : 0.8227  sec
 
-optbinning (Version 0.14.0)
-Copyright (c) 2019-2022 Guillermo Navas-Palencia, Apache License 2.0
+optbinning (Version 0.21.0)
+Copyright (c) 2019-2025 Guillermo Navas-Palencia, Apache License 2.0
 
   Statistics
     Number of records                    569
@@ -18,14 +18,14 @@ Copyright (c) 2019-2022 Guillermo Navas-Palencia, Apache License 2.0
     Number of selected                    30
 
   Timing
-    Total time                          4.54 sec
-    Binning process                     4.18 sec   ( 92.04%)
-    Estimator                           0.04 sec   (  0.94%)
-    Build scorecard                     0.32 sec   (  7.01%)
+    Total time                          0.82 sec
+    Binning process                     0.80 sec   ( 97.02%)
+    Estimator                           0.00 sec   (  0.25%)
+    Build scorecard                     0.02 sec   (  2.72%)
       rounding                          0.00 sec   (  0.00%)
 
-optbinning (Version 0.14.0)
-Copyright (c) 2019-2022 Guillermo Navas-Palencia, Apache License 2.0
+optbinning (Version 0.21.0)
+Copyright (c) 2019-2025 Guillermo Navas-Palencia, Apache License 2.0
 
   Begin options
     binning_process                      yes   * U
@@ -48,9 +48,9 @@ Copyright (c) 2019-2022 Guillermo Navas-Palencia, Apache License 2.0
     Number of selected                    30
 
   Timing
-    Total time                          4.54 sec
-    Binning process                     4.18 sec   ( 92.04%)
-    Estimator                           0.04 sec   (  0.94%)
-    Build scorecard                     0.32 sec   (  7.01%)
+    Total time                          0.82 sec
+    Binning process                     0.80 sec   ( 97.02%)
+    Estimator                           0.00 sec   (  0.25%)
+    Build scorecard                     0.02 sec   (  2.72%)
       rounding                          0.00 sec   (  0.00%)
 

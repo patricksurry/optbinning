@@ -5,7 +5,7 @@ Monitoring: System Stability Report
   Population Stability Index (PSI)
 
 
-    PSI total:      0.0018 (No significant change)
+    PSI total:      0.0011 (No significant change)
 
          PSI bin  Count  Count (%)
     [0.00, 0.10)      3        1.0
@@ -17,8 +17,8 @@ Monitoring: System Stability Report
      p-value bin  Count  Count (%)
     [0.00, 0.05)      1   0.333333
     [0.05, 0.10)      0   0.000000
-    [0.10, 0.50)      1   0.333333
-    [0.50, 1.00)      1   0.333333
+    [0.10, 0.50)      2   0.666667
+    [0.50, 1.00)      0   0.000000
 
   Target analysis
 
@@ -36,5 +36,5 @@ Monitoring: System Stability Report
     False negative rate 0.009259  0.000000    0.009259
       Balanced accuracy 0.979497  0.989933   -0.010436
      Discriminant power 4.460557       inf        -inf
-                   Gini 0.986185  0.999838   -0.013654
+                   Gini 0.986185  0.999892   -0.013708
 
