@@ -541,7 +541,6 @@ def test_categorical_transform():
     # unknown category default case
     for metric, value in (("bins", "unknown"), ("indices", -1), ("woe", 0)):
         optb.fit(x, y)
-
         assert optb.transform(x=['new'], metric=metric)[0] == value
 
 

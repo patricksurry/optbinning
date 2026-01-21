@@ -24,7 +24,7 @@ from .binning_statistics import target_info_special_continuous
 from .continuous_cp import ContinuousBinningCP
 from .preprocessing import preprocessing_user_splits_categorical
 from .preprocessing import split_data
-from .transformations import transform_continuous_target
+from .transformations import ContinuousTargetTransformer
 
 
 logger = Logger(__name__).logger
@@ -418,6 +418,9 @@ class ContinuousOptimalBinning(OptimalBinning):
 
         self._is_fitted = False
 
+        # transform cache
+        self._transform_cache = {}
+
     def fit(self, x, y, sample_weight=None, check_input=False):
         """Fit the optimal binning according to the given training data.
 
@@ -540,14 +543,35 @@ class ContinuousOptimalBinning(OptimalBinning):
         """
         self._check_is_fitted()
 
-        return transform_continuous_target(self._splits_optimal, self.dtype,
-                                           x, self._n_records, self._sums,
-                                           self.special_codes,
-                                           self._categories, self._cat_others,
-                                           self.cat_unknown, metric,
-                                           metric_special, metric_missing,
-                                           self.user_splits, show_digits,
-                                           check_input)
+        # Create cache key from transform parameters
+        cache_key = (metric, metric_special, metric_missing, show_digits)
+
+        # Get or create cached transformer
+        if cache_key not in self._transform_cache:
+            self._transform_cache[cache_key] = ContinuousTargetTransformer(
+                splits=self._splits_optimal,
+                dtype=self.dtype,
+                n_records=self._n_records,
+                sums=self._sums,
+                special_codes=self.special_codes,
+                categories=self._categories,
+                cat_others=self._cat_others,
+                cat_unknown=self.cat_unknown,
+                user_splits=self.user_splits,
+                metric=metric,
+                metric_special=metric_special,
+                metric_missing=metric_missing,
+                show_digits=show_digits
+            )
+
+        transformer = self._transform_cache[cache_key]
+
+        # Optionally validate input
+        if check_input:
+            x = check_array(x, ensure_2d=False, dtype=None,
+                          ensure_all_finite='allow-nan')
+
+        return transformer.transform(x)
 
     def _fit(self, x, y, sample_weight, check_input):
         time_init = time.perf_counter()
